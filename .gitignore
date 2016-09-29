@@ -1,0 +1,4 @@
+/.idea/
+/tests/phpunit.log
+/vendor/
+/composer.lock
