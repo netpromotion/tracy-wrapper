@@ -1,0 +1,21 @@
+{
+  "name": "netpromotion/tracy-wrapper",
+  "description": "Tracy wrapper",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Petr Knap",
+      "email": "knap@netpromotion.cz"
+    }
+  ],
+  "config": {
+    "platform": {
+      "php": "5.4.45",
+      "ext-dom": true
+    }
+  },
+  "require": {
+    "php": ">=5.4",
+    "tracy/tracy": "^2.4"
+  }
+}
