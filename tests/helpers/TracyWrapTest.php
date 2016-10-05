@@ -55,7 +55,7 @@ class TracyWrapTest extends PHPUnit_Framework_TestCase
 
     public function dataAssetIsDispatched()
     {
-        return [["css"], ["js"]];
+        return [["assets"]];
     }
 
     /**
