@@ -65,7 +65,23 @@ class TracyWrapTest extends PHPUnit_Framework_TestCase
      */
     public function testContentIsDispatched()
     {
-        $this->markTestSkipped();
+        session_start();
+        Debugger::enable(true);
+        ob_start();
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        tracy_wrap($this->renderer, [], null);
+        $content = ob_get_contents();
+        ob_end_clean();
+        preg_match('/content(-ajax)?.(\w+)/', $content, $m);
+        $_GET['_tracy_bar'] = "content.{$m[2]}{$m[1]}";
+
+        ob_start();
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        tracy_wrap($this->renderer, [], null);
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertContains("Tracy.Debug.init(", $content);
     }
 
     /**
