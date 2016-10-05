@@ -13,6 +13,10 @@ class TracyWrapTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $helpersFile = __DIR__ . "/../../vendor/tracy/tracy/src/Tracy/Helpers.php";
+        $contents = file_get_contents($helpersFile);
+        file_put_contents($helpersFile, str_replace("PHP_SAPI", "'apache'", $contents));
+
         parent::setUp();
         $this->renderer = function() {
             print $this->getHtmlPage();
@@ -24,8 +28,6 @@ class TracyWrapTest extends PHPUnit_Framework_TestCase
      */
     public function testPassThroughIfDisabled()
     {
-        Debugger::enable(false);
-
         ob_start();
         tracy_wrap($this->renderer);
         $content = ob_get_contents();
