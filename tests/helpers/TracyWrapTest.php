@@ -102,7 +102,7 @@ class TracyWrapTest extends PHPUnit_Framework_TestCase
     /**
      * @runInSeparateProcess
      */
-    public function testPanelsAreAdded()
+    public function testPanelsAreAddedFromArray()
     {
         Debugger::enable(true);
 
@@ -112,5 +112,68 @@ class TracyWrapTest extends PHPUnit_Framework_TestCase
         ob_start();
         tracy_wrap($this->renderer, [$panel, $panel, $panel]);
         ob_end_clean();
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testPanelsAreAddedViaCallable()
+    {
+        Debugger::enable(true);
+
+        ob_start();
+        tracy_wrap($this->renderer, function() {
+            $panel = $this->getMock("Tracy\\IBarPanel");
+            $panel->expects($this->exactly(3))->method("getTab")->willReturn("");
+
+            return [$panel, $panel, $panel];
+        });
+        ob_end_clean();
+    }
+
+    /**
+     * @runInSeparateProcess
+     * @dataProvider dataSecondParameterMustBeValid
+     * @param mixed $secondParameter
+     * @param bool $valid
+     */
+    public function testSecondParameterMustBeValid($secondParameter, $valid)
+    {
+        Debugger::enable(true);
+        if (!$valid) {
+            $this->setExpectedException("ErrorException");
+        }
+
+        ob_start();
+        tracy_wrap($this->renderer, $secondParameter);
+        ob_end_clean();
+        $this->assertTrue($valid);
+    }
+
+    public function dataSecondParameterMustBeValid()
+    {
+        return [
+            [$this->dataSecondParameterMustBeValid_array(), true],
+            [$this->dataSecondParameterMustBeValid_null(), false],
+            [$this->dataSecondParameterMustBeValid_string(), false],
+            [[$this, "dataSecondParameterMustBeValid_array"], true],
+            [[$this, "dataSecondParameterMustBeValid_null"], false],
+            [[$this, "dataSecondParameterMustBeValid_string"], false]
+        ];
+    }
+
+    public function dataSecondParameterMustBeValid_array()
+    {
+        return [];
+    }
+
+    public function dataSecondParameterMustBeValid_null()
+    {
+        return null;
+    }
+
+    public function dataSecondParameterMustBeValid_string()
+    {
+        return "string";
     }
 }

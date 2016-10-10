@@ -8,9 +8,15 @@ Helper which helps you with [Tracy] injection into your project.
 ```php
 <?php // index.php
 
+$panels = [new BarPanelA(), new BarPanelB()];
+// or
+$panels = function () {
+    return [new BarPanelA(), new BarPanelB()];
+};
+
 tracy_wrap(function() {
     app()->run();
-}, [new BarPanelA(), new BarPanelB()] /* optional */);
+}, $panels /* optional */);
 ```
 
 

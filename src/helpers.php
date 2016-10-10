@@ -6,9 +6,9 @@ use Tracy\IBarPanel;
 if (!function_exists("tracy_wrap")) {
     /**
      * @param callable $yourCode
-     * @param IBarPanel[] $barPanels
+     * @param callable|IBarPanel[] $barPanels
      */
-    function tracy_wrap(callable $yourCode, array $barPanels = [])
+    function tracy_wrap(callable $yourCode, $barPanels = [])
     {
         $debugMode = Debugger::isEnabled();
 
@@ -19,6 +19,12 @@ if (!function_exists("tracy_wrap")) {
                     return /* for unit testing only */;
                 }
                 exit;
+            }
+            if (is_callable($barPanels)) {
+                $barPanels = call_user_func($barPanels);
+            }
+            if (!is_array($barPanels)) {
+                user_error("Second parameter must be array or callable which returns array.", E_USER_ERROR);
             }
             foreach ($barPanels as $barPanel) {
                 $bar->addPanel($barPanel);
