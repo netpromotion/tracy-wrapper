@@ -12,7 +12,7 @@ Helper which helps you with [Tracy] injection into your project.
 
 $panels = [new BarPanelA(), new BarPanelB()];
 // or
-$panels = function () { // will be called only if tracy detects development mode
+$panels = function () { // will be called only if Tracy detects development mode
     return [new BarPanelA(), new BarPanelB()];
 };
 
