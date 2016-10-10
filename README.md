@@ -10,7 +10,7 @@ Helper which helps you with [Tracy] injection into your project.
 
 tracy_wrap(function() {
     app()->run();
-});
+}, [new BarPanelA(), new BarPanelB()] /* optional */);
 ```
 
 
