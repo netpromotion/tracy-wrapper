@@ -2,6 +2,8 @@
 
 Helper which helps you with [Tracy] injection into your project.
 
+![Lumen + Tracy](preview.png)
+
 
 ## Usage
 
@@ -10,7 +12,7 @@ Helper which helps you with [Tracy] injection into your project.
 
 $panels = [new BarPanelA(), new BarPanelB()];
 // or
-$panels = function () {
+$panels = function () { // will be called only if tracy detects development mode
     return [new BarPanelA(), new BarPanelB()];
 };
 
