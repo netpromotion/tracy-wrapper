@@ -98,4 +98,19 @@ class TracyWrapTest extends PHPUnit_Framework_TestCase
 
         $this->assertContains("?_tracy_bar", $content);
     }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testPanelsAreAdded()
+    {
+        Debugger::enable(true);
+
+        $panel = $this->getMock("Tracy\\IBarPanel");
+        $panel->expects($this->exactly(3))->method("getTab")->willReturn("");
+
+        ob_start();
+        tracy_wrap($this->renderer, [$panel, $panel, $panel]);
+        ob_end_clean();
+    }
 }
