@@ -2,6 +2,13 @@
   "name": "netpromotion/tracy-wrapper",
   "description": "Tracy wrapper",
   "license": "MIT",
+  "keywords": [
+    "debug",
+    "helper",
+    "Tracy",
+    "wrap",
+    "wrapper"
+  ],
   "authors": [
     {
       "name": "Petr Knap",
