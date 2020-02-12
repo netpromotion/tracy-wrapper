@@ -14,7 +14,7 @@ if (!function_exists("tracy_wrap")) {
 
         if ($debugMode) {
             $bar = Debugger::getBar();
-            if ($bar->dispatchAssets() || $bar->dispatchContent()) {
+            if ($bar->dispatchAssets()) {
                 if (func_num_args() === 3) {
                     return /* for unit testing only */;
                 }
