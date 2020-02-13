@@ -15,6 +15,7 @@
       "email": "knap@netpromotion.cz"
     }
   ],
+  "abandoned": "maximebf/debugbar",
   "config": {
     "platform": {
       "php": "5.4.45",
